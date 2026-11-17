@@ -52,6 +52,7 @@ Route::get('/barang', [BarangController::class, 'index']);
 Route::post('/barang', [BarangController::class, 'store']);
 Route::get('/barang/{id}', [BarangController::class, 'show']);
 Route::put('/barang/{id}', [BarangController::class, 'update']);
+Route::post('/barang/{id}', [BarangController::class, 'update']);
 Route::delete('/barang/{id}', [BarangController::class, 'destroy']);
 
 // Peminjaman Endpoints (CRUD)

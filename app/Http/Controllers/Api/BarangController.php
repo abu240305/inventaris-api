@@ -58,6 +58,7 @@ class BarangController extends BaseController
             'kondisi' => 'nullable|in:Baik,Rusak Ringan,Rusak Berat',
             'deskripsi' => 'nullable|string',
             'lokasi' => 'nullable|string|max:255',
+            'lokasi_rak' => 'nullable|string|max:255',
             'gambar' => 'nullable',
         ]);
 
@@ -80,6 +81,8 @@ class BarangController extends BaseController
             $gambarUrl = url('storage/'.$path);
         }
 
+        $lokasi = $request->input('lokasi') ?: $request->input('lokasi_rak');
+
         $barang = Barang::create([
             'kategori_id' => $request->kategori_id,
             'kode_barang' => $request->kode_barang,
@@ -87,7 +90,7 @@ class BarangController extends BaseController
             'stok' => $request->stok,
             'kondisi' => $request->input('kondisi', 'Baik'),
             'deskripsi' => $request->deskripsi,
-            'lokasi' => $request->lokasi,
+            'lokasi' => $lokasi,
             'gambar' => $gambarUrl,
         ]);
 
@@ -129,6 +132,7 @@ class BarangController extends BaseController
             'kondisi' => 'required|in:Baik,Rusak Ringan,Rusak Berat',
             'deskripsi' => 'nullable|string',
             'lokasi' => 'nullable|string|max:255',
+            'lokasi_rak' => 'nullable|string|max:255',
             'gambar' => 'nullable',
         ]);
 
@@ -153,6 +157,8 @@ class BarangController extends BaseController
             $gambarUrl = $request->input('gambar');
         }
 
+        $lokasi = $request->input('lokasi') ?: $request->input('lokasi_rak');
+
         $barang->update([
             'kategori_id' => $request->kategori_id,
             'kode_barang' => $request->kode_barang,
@@ -160,7 +166,7 @@ class BarangController extends BaseController
             'stok' => $request->stok,
             'kondisi' => $request->kondisi,
             'deskripsi' => $request->deskripsi,
-            'lokasi' => $request->lokasi,
+            'lokasi' => $lokasi ?? $barang->lokasi,
             'gambar' => $gambarUrl,
         ]);
 
